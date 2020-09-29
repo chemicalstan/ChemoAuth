@@ -22,6 +22,9 @@ app.use(expressLayout);
 // Setting default view engine
 app.set('view engine', 'ejs');
 
+// Body parser *** This parses data from the form
+app.use(express.urlencoded({ extended: false}))
+
 // Setting Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
