@@ -1,6 +1,7 @@
-let express = require('express');
-const { route } = require('.');
+const express = require('express');
 let router = express.Router();
+// User model
+const User = require('../models/User');
 // User Login
 router.get('/login', (req, res)=>res.render('login'));
 router.get('/register', (req, res)=>res.render('register'));
@@ -32,7 +33,7 @@ router.post('/register', (req, res)=>{
             password2
         })
     }else{
-        res.send('Pass');
+    // Validation Passed
     }
 })
 
