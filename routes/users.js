@@ -1,7 +1,10 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+
 // User model
 const User = require('../models/User');
+
 // User Login
 router.get('/login', (req, res)=>res.render('login'));
 router.get('/register', (req, res)=>res.render('register'));
@@ -34,6 +37,24 @@ router.post('/register', (req, res)=>{
         })
     }else{
     // Validation Passed
+      // check if user already exists
+      User.findOne({ email: email })
+        .then(user=>{
+            if (user) {
+                errors.push({msg: 'Email is already registered'})
+                res.render('register', {errors, name, email, password, password2})
+            }else {
+                // Create new user and encrypt password
+                const newUser = new User({
+                    name,
+                    email,
+                    password
+                });
+               
+                console.log(newUser);
+                res.send('Hello bro')
+            }
+        })
     }
 })
 
